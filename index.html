@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyline Stresser - Local Test Version</title>
+    <title>Skyline Stresser</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -100,7 +100,6 @@
             gap: 15px;
             justify-content: center;
             margin-top: 20px;
-            flex-direction: column;
         }
 
         .user-info {
@@ -231,6 +230,8 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            width: 100%;
+            justify-content: center;
         }
 
         .btn-primary {
@@ -260,16 +261,6 @@
 
         .btn-google:hover {
             background: #3367D6;
-            transform: translateY(-2px);
-        }
-
-        .btn-test {
-            background: var(--warning);
-            color: var(--dark);
-        }
-
-        .btn-test:hover {
-            background: #fdc842;
             transform: translateY(-2px);
         }
 
@@ -452,30 +443,27 @@
     <div class="container">
         <div class="header">
             <h1><i class="fas fa-bolt"></i> Skyline Stresser</h1>
-            <p>Local Test Version - No Authentication Required</p>
+            <p>Advanced Website Stress Testing Platform</p>
         </div>
 
         <div class="auth-section">
-            <h3><i class="fas fa-user-shield"></i> Local Access</h3>
-            <p>For testing purposes, you can use the test account or connect with Firebase</p>
+            <h3><i class="fas fa-user-shield"></i> Authentication Required</h3>
+            <p>Sign in with Google to access the stress testing tools</p>
 
             <div id="authContainer">
                 <div class="auth-buttons">
-                    <button class="btn btn-test" id="testLogin">
-                        <i class="fas fa-user-check"></i> Use Test Account
-                    </button>
                     <button class="btn btn-google" id="googleSignIn">
-                        <i class="fab fa-google"></i> Sign in with Google (may require domain setup)
+                        <i class="fab fa-google"></i> Sign in with Google
                     </button>
                 </div>
             </div>
 
             <div id="userContainer" style="display: none;">
                 <div class="user-info">
-                    <div class="user-avatar" id="userAvatar">T</div>
+                    <div class="user-avatar" id="userAvatar"></div>
                     <div>
-                        <h4 id="userName">Test User</h4>
-                        <p id="userEmail">test@example.com</p>
+                        <h4 id="userName">User</h4>
+                        <p id="userEmail">user@example.com</p>
                     </div>
                     <button class="btn btn-danger" id="signOutBtn">
                         <i class="fas fa-sign-out-alt"></i> Sign Out
@@ -495,12 +483,12 @@
 
                 <div class="input-group">
                     <label for="threads">Threads</label>
-                    <input type="number" id="threads" min="1" max="50" value="5">
+                    <input type="number" id="threads" min="1" max="50" value="10">
                 </div>
 
                 <div class="input-group">
                     <label for="timeout">Request Timeout (ms)</label>
-                    <input type="number" id="timeout" min="100" max="10000" value="2000">
+                    <input type="number" id="timeout" min="100" max="10000" value="3000">
                 </div>
             </div>
 
@@ -592,16 +580,16 @@
             <div class="log-entry info">
                 <i class="fas fa-info-circle"></i>
                 <span class="log-time">[00:00:00]</span>
-                <span>Skyline Stresser Local Test Version initialized</span>
+                <span>Skyline Stresser initialized. Please sign in to continue.</span>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        <p>Skyline Stresser | Local Test Version | For educational purposes only</p>
+        <p>Skyline Stresser | For educational and testing purposes only</p>
     </div>
 
-    <!-- Firebase SDK - Compat version -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
 
@@ -640,7 +628,6 @@
         const responseTime = document.getElementById('responseTime');
         const responseProgress = document.getElementById('responseProgress');
         const googleSignIn = document.getElementById('googleSignIn');
-        const testLogin = document.getElementById('testLogin');
         const signOutBtn = document.getElementById('signOutBtn');
         const authContainer = document.getElementById('authContainer');
         const userContainer = document.getElementById('userContainer');
@@ -686,84 +673,65 @@
             logContainer.scrollTop = logContainer.scrollHeight;
         }
 
-        // Test account login (no Firebase required)
-        testLogin.addEventListener('click', () => {
-            currentUser = {
-                displayName: "Test User",
-                email: "test@example.com",
-                photoURL: null,
-                uid: "test-user-" + Math.random().toString(36).substring(2, 9)
-            };
-
-            authContainer.style.display = 'none';
-            userContainer.style.display = 'block';
-            controlsSection.style.display = 'grid';
-            statsSection.style.display = 'block';
-
-            userName.textContent = currentUser.displayName;
-            userEmail.textContent = currentUser.email;
-            userAvatar.textContent = currentUser.displayName.charAt(0).toUpperCase();
-
-            log('Logged in with test account', 'success');
-        });
-
-        // Google Sign-In (may fail due to domain restrictions)
+        // Google Sign-In
         googleSignIn.addEventListener('click', () => {
-            log('Attempting Google Sign-In...', 'info');
-
             auth.signInWithPopup(provider)
                 .then((result) => {
                     currentUser = result.user;
-                    authContainer.style.display = 'none';
-                    userContainer.style.display = 'block';
-                    controlsSection.style.display = 'grid';
-                    statsSection.style.display = 'block';
-
-                    userName.textContent = currentUser.displayName || 'Google User';
-                    userEmail.textContent = currentUser.email;
-                    if (currentUser.photoURL) {
-                        userAvatar.innerHTML = `<img src="${currentUser.photoURL}" alt="User" style="width: 100%; height: 100%; border-radius: 50%;">`;
-                    } else {
-                        userAvatar.textContent = (currentUser.displayName || 'G').charAt(0).toUpperCase();
-                    }
-
-                    log(`Successfully signed in with Google as ${currentUser.displayName || currentUser.email}`, 'success');
+                    log(`Successfully signed in as ${currentUser.displayName || currentUser.email}`, 'success');
+                    updateUI();
                 })
                 .catch((error) => {
-                    log(`Google Sign-In failed: ${error.message}`, 'warning');
-                    log('Using test account instead...', 'info');
-
-                    // Fall back to test account if Google fails
-                    setTimeout(() => {
-                        currentUser = {
-                            displayName: "Test User",
-                            email: "test@example.com",
-                            photoURL: null,
-                            uid: "test-user-" + Math.random().toString(36).substring(2, 9)
-                        };
-
-                        authContainer.style.display = 'none';
-                        userContainer.style.display = 'block';
-                        controlsSection.style.display = 'grid';
-                        statsSection.style.display = 'block';
-
-                        userName.textContent = currentUser.displayName;
-                        userEmail.textContent = currentUser.email;
-                        userAvatar.textContent = currentUser.displayName.charAt(0).toUpperCase();
-
-                        log('Logged in with test account', 'success');
-                    }, 1000);
+                    log(`Sign in failed: ${error.message}`, 'danger');
                 });
         });
 
         // Sign Out
         signOutBtn.addEventListener('click', () => {
-            currentUser = null;
-            authContainer.style.display = 'block';
-            userContainer.style.display = 'none';
-            controlsSection.style.display = 'none';
-            statsSection.style.display = 'none';
-            log('Signed out', 'info');
+            auth.signOut()
+                .then(() => {
+                    currentUser = null;
+                    log('Successfully signed out', 'info');
+                    updateUI();
+                })
+                .catch((error) => {
+                    log(`Sign out failed: ${error.message}`, 'danger');
+                });
+        });
+
+        // Update UI based on auth state
+        function updateUI() {
+            if (currentUser) {
+                authContainer.style.display = 'none';
+                userContainer.style.display = 'block';
+                controlsSection.style.display = 'grid';
+                statsSection.style.display = 'block';
+
+                userName.textContent = currentUser.displayName || 'User';
+                userEmail.textContent = currentUser.email;
+                if (currentUser.photoURL) {
+                    userAvatar.innerHTML = `<img src="${currentUser.photoURL}" alt="User" style="width: 100%; height: 100%; border-radius: 50%;">`;
+                } else {
+                    userAvatar.textContent = (currentUser.displayName || 'U').charAt(0).toUpperCase();
+                }
+            } else {
+                authContainer.style.display = 'block';
+                userContainer.style.display = 'none';
+                controlsSection.style.display = 'none';
+                statsSection.style.display = 'none';
+            }
+        }
+
+        // Auth state observer
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                currentUser = user;
+                updateUI();
+                log(`Welcome back, ${user.displayName || user.email}!`, 'success');
+            } else {
+                currentUser = null;
+                updateUI();
+            }
         });
 
         // Select attack method
@@ -949,7 +917,7 @@
             startBtn.disabled = true;
             stopBtn.disabled = false;
 
-            log(`Launching ${currentMethod} test on ${url}`, 'info');
+            log(`Launching ${currentMethod} attack on ${url}`, 'info');
 
             // Start status monitoring
             statusCheckInterval = setInterval(checkTargetStatus, 5000);
@@ -976,18 +944,17 @@
             startBtn.disabled = false;
             stopBtn.disabled = true;
 
-            log('Test stopped by user. All requests aborted.', 'warning');
+            log('Attack stopped by user. All requests aborted.', 'warning');
 
             // Update status
             statusDot.className = 'status-dot offline';
-            statusText.textContent = 'Test stopped';
+            statusText.textContent = 'Attack stopped';
             responseTime.textContent = 'N/A';
             responseProgress.style.width = '0%';
         }
 
         // Initialize
-        log('Local test version initialized. No authentication required.', 'success');
-        log('Click "Use Test Account" to begin testing.', 'info');
+        log('Skyline Stresser initialized. Ready for authentication.', 'success');
     </script>
 </body>
 </html>
