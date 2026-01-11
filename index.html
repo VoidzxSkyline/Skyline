@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skyline Stresser</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_CLIENT_ID"
+     crossorigin="anonymous"></script>
+
     <style>
         :root {
             --primary: #6c5ce7;
@@ -32,6 +37,46 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
+        }
+
+        /* Ad Container Styles */
+        .ad-container {
+            position: fixed;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(100, 100, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .ad-left, .ad-right {
+            top: 100px;
+            width: 160px;
+            height: 600px;
+        }
+
+        .ad-left {
+            left: 10px;
+        }
+
+        .ad-right {
+            right: 10px;
+        }
+
+        .ad-top {
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 728px;
+            height: 90px;
+        }
+
+        .ad-bottom {
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 728px;
+            height: 90px;
         }
 
         .container {
@@ -124,6 +169,7 @@
             color: white;
             font-weight: bold;
             overflow: hidden;
+            position: relative;
         }
 
         .user-avatar img {
@@ -131,6 +177,9 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .controls {
@@ -432,40 +481,18 @@
             font-size: 0.9em;
         }
 
-        /* Ad containers */
-        .ad-container {
-            position: fixed;
-            z-index: 1000;
-        }
-
-        .ad-left {
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .ad-right {
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .ad-banner {
-            width: 160px;
-            height: 600px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--light);
-            font-size: 0.9em;
-            text-align: center;
-            padding: 10px;
-            border: 1px solid rgba(100, 100, 255, 0.2);
+        @media (max-width: 1024px) {
+            .ad-left, .ad-right {
+                width: 120px;
+                height: 600px;
+            }
         }
 
         @media (max-width: 768px) {
+            .ad-left, .ad-right, .ad-top, .ad-bottom {
+                display: none;
+            }
+
             .controls {
                 grid-template-columns: 1fr;
             }
@@ -477,25 +504,51 @@
             .auth-buttons {
                 flex-direction: column;
             }
-
-            .ad-container {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Ad Containers -->
+    <!-- AdSense Ad Containers -->
+    <!-- Side Banners (160x600) -->
     <div class="ad-container ad-left">
-        <div class="ad-banner">
-            Ad Space<br>(Left Side)
-        </div>
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-YOUR_CLIENT_ID"
+             data-ad-slot="YOUR_SIDE_AD_SLOT_ID"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 
     <div class="ad-container ad-right">
-        <div class="ad-banner">
-            Ad Space<br>(Right Side)
-        </div>
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:160px;height:600px"
+             data-ad-client="ca-pub-YOUR_CLIENT_ID"
+             data-ad-slot="YOUR_SIDE_AD_SLOT_ID"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <!-- Leaderboard Ads (728x90) -->
+    <div class="ad-container ad-top">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-YOUR_CLIENT_ID"
+             data-ad-slot="YOUR_LEADERBOARD_AD_SLOT_ID"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="ad-container ad-bottom">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-YOUR_CLIENT_ID"
+             data-ad-slot="YOUR_LEADERBOARD_AD_SLOT_ID"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 
     <div class="container">
@@ -650,10 +703,6 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
-
-    <!-- Google AdSense (Example) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_CLIENT_ID"
-     crossorigin="anonymous"></script>
 
     <script>
         // Firebase configuration
@@ -1017,9 +1066,6 @@
 
         // Initialize
         log('Skyline Stresser initialized. Ready for authentication.', 'success');
-
-        // Initialize ads (example)
-        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </body>
 </html>
